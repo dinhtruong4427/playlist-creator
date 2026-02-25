@@ -1,0 +1,24 @@
+.scroll-container {
+  border: 2px solid grey;
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 74vh
+}
+
+.scroll-box {
+  max-height: 72vh;
+  overflow-y: auto;
+  padding-right: 12px;
+  scroll-behavior: smooth;
+  padding: 4px;
+}
+
+.scroll-box > * + * {
+  margin-top: 4px;
+}
+
+.scroll-box::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
+}

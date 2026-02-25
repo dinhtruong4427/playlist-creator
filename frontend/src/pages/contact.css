@@ -1,0 +1,27 @@
+.contact-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* full viewport height */
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  margin-left: 100px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+li {
+  margin: 5px 0;
+  font-size: 16px;
+}

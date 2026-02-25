@@ -1,0 +1,12 @@
+# Backend Ignored Files
+backend/.venv/
+backend/neural_net/data/
+
+# Frontend Ignored Files
+frontend/node_modules/
+frontend/public/
+
+# End to End Ignored Files
+fma/
+node_modules/
+__pycache__/

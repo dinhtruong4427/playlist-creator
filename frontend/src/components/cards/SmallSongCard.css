@@ -1,0 +1,20 @@
+.small-song-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 0px;
+  overflow: hidden;
+  opacity: 0;
+  padding: 1vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  background-color: #fff;
+  transition:
+    opacity .4s ease,
+    max-width .4s ease;
+}
+
+.small-song-card.expanded {
+    max-width: 500px;
+    opacity: 1;
+}

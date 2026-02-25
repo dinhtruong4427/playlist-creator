@@ -1,0 +1,34 @@
+.label-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
+    opacity: 1;
+    max-width: 100%;
+    transition:
+        max-height .4s ease,
+        max-width .4s ease,
+        opacity .4s ease;
+}
+
+.box-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.box-subtitle {
+    font-size: 14px;
+    color: grey;
+}
+
+.label-container.left-align {
+    align-items: flex-start;
+}
+
+.label-container.retracted {
+    opacity: 0;
+    max-width: 0;
+    max-height: 0;
+    overflow: hidden;
+}
