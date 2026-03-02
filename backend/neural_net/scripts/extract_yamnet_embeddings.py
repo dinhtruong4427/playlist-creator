@@ -60,6 +60,7 @@ def apple_embedding_extraction():
     embeddings = []
     paths = []
 
+    # song_obj = (previewUrl, trackId, trackName)
     for song_obj in tqdm(audio_files, desc="Processing Ding's apple audio files"):
         try:
             # load audio file from path
@@ -124,9 +125,10 @@ def apple_single_embedding_extraction(song_url, song_name):
     embedding = embedder.embed(audio, sr)
 
     # save output
-    # np.save(os.path.join(OUTPUT_DIR, f"yamnet_apple_embeddings.npy"), embedding)
+    np.save(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings.npy"), embedding)
+    np.save(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), song_name)
 
-    print(f"DID NOT Saved embedding for {song_name} to {OUTPUT_DIR}")
+    print(f"Saved embedding singular for {song_name} to {OUTPUT_DIR}")
 
     return embedding
 

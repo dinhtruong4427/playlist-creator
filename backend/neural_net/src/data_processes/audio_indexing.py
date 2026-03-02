@@ -37,3 +37,6 @@ def collect_apple_samples(root):
                 print(f"Skipping {row['trackName']}: {e}")
 
     return sample_list
+
+def get_song_index(root):
+    
