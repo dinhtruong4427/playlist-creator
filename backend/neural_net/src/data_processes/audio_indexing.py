@@ -38,5 +38,6 @@ def collect_apple_samples(root):
 
     return sample_list
 
-def get_song_index(root):
+
+
     

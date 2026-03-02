@@ -1,0 +1,9 @@
+import numpy as np
+
+def get_embedding_index(root, embedding):
+    embedding_array = np.load(root)
+
+    for index, current_embedding in enumerate(data):
+        if current_embedding[0] == embedding:
+            print(f"Found same embedding at index {index}: {current_embedding}")
+            return index
