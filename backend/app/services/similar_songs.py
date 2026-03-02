@@ -1,14 +1,18 @@
 import requests
 
-from neural_net.scripts.similarity import get_similar_songs_by_embedding
+from neural_net.scripts.similarity import get_similar_songs
 from neural_net.scripts.extract_yamnet_embeddings import apple_single_embedding_extraction
+from neural_net.src.data_processes.embedding_indexing import get_embedding_index
 
 def find_similar_songs(song_url, song_name, top_n=5):
     similar_songs_array = []
     cleaned_song_url = song_url.replace("https://", "http://")
     embedding = apple_single_embedding_extraction(cleaned_song_url, song_name)
 
-    similar_songs = get_similar_songs_by_embedding(embedding, song_num=top_n)
+
+    query_index = get_embedding_index(embedding)
+
+    similar_songs = get_similar_songs(query_index, song_num=top_n)
 
     for score, path in similar_songs:
         current_song = get_song_by_id(int(path))

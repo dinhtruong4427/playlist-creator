@@ -7,7 +7,7 @@ from neural_net.src.config.embedding_config import EMBEDDINGS_FILE_PATH, PATHS_F
 embeddings = np.load(EMBEDDINGS_FILE_PATH)
 paths = np.load(PATHS_FILE_PATH)
 
-print(f"Loaded {embeddings.shape[0]} embeddings of dimension {embeddings.shape[1]}.")
+#print(f"Loaded {embeddings.shape[0]} embeddings of dimension {embeddings.shape[1]}.")
 
 '''
 gets a given number of songs that are similar to a selected song
@@ -21,6 +21,7 @@ return:
 '''
 def get_similar_songs(query_index, song_num=SONG_NUM):
     # retrieves the vector of the selected song (note understand reshape)
+    print(f"Finding similar songs to {paths[query_index]}")
     query_vector = embeddings[query_index].reshape(1, -1)
 
     # computes cosine similarity (angle between 2 vectors) of all embeddings
@@ -31,6 +32,7 @@ def get_similar_songs(query_index, song_num=SONG_NUM):
 
     # returns the indexes of most similar songs based off cosine similarity
     top_indices = sims.argsort()[-song_num:][::-1]
+
 
     # Return list of (similarity_score, path)
     return [(sims[i], paths[i]) for i in top_indices]
