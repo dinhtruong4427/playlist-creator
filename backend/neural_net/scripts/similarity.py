@@ -21,6 +21,7 @@ return:
 '''
 def get_similar_songs(query_index, song_num=SONG_NUM):
     # retrieves the vector of the selected song (note understand reshape)
+    print("This is the path", paths)
     print(f"Finding similar songs to {paths[query_index]}")
     query_vector = embeddings[query_index].reshape(1, -1)
 

@@ -6,7 +6,7 @@ def get_embedding_index(embedding):
     embedding_array = np.load(EMBEDDINGS_FILE_PATH)
 
     for index, current_embedding in enumerate(embedding_array):
-        if current_embedding[0] == embedding:
+        if current_embedding == embedding[0]:
             print(f"Found same embedding at index {index}: {current_embedding}")
             return index
 
