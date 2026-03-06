@@ -6,6 +6,7 @@ from tqdm import tqdm
 # file imports
 from neural_net.src.data_processes.audio_indexing import collect_audio_files, collect_apple_samples
 from neural_net.src.data_processes.audio_loader import load_audio, load_apple_audio
+from neural_net.src.data_processes.embedding_indexing import append_embedding
 # from backend.neural_net.src.data_processes.batch_builder import build_apple_batches
 from neural_net.src.models.yamnet_embedder import YAMNetEmbedder
 from neural_net.src.config.embedding_config import APPLE_ROOT, AUDIO_ROOT, OUTPUT_DIR, DURATION, SAMPLE_RATE
@@ -85,6 +86,10 @@ def apple_embedding_extraction():
 
     print(f"Saved {len(embeddings)} embeddings to {OUTPUT_DIR}")
 
+
+'''
+Shut down temporarily due to lack of batching support
+
 def apple_batched_embedding_extraction():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -114,6 +119,7 @@ def apple_batched_embedding_extraction():
     np.save(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), song_names)
 
     print(f"Saved {len(embeddings)} embeddings to {OUTPUT_DIR}")
+'''
 
 def apple_single_embedding_extraction(song_url, song_name):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
