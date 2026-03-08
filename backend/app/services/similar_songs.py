@@ -2,7 +2,7 @@ import requests
 
 from neural_net.scripts.similarity import get_similar_songs
 from neural_net.scripts.extract_yamnet_embeddings import apple_single_embedding_extraction
-from neural_net.src.data_processes.embedding_indexing import get_embedding_index
+from backend.neural_net.src.data_processes.npy_handler import get_item_index
 
 def find_similar_songs(song_url, song_name, top_n=5):
     similar_songs_array = []
@@ -10,7 +10,7 @@ def find_similar_songs(song_url, song_name, top_n=5):
     embedding = apple_single_embedding_extraction(cleaned_song_url, song_name)
 
 
-    query_index = get_embedding_index(embedding)
+    query_index = get_item_index(embedding)
 
     similar_songs = get_similar_songs(query_index, song_num=top_n)
 

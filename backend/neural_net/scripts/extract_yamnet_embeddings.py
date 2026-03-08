@@ -6,7 +6,7 @@ from tqdm import tqdm
 # file imports
 from neural_net.src.data_processes.audio_indexing import collect_audio_files, collect_apple_samples
 from neural_net.src.data_processes.audio_loader import load_audio, load_apple_audio
-from neural_net.src.data_processes.embedding_indexing import append_embedding
+from backend.neural_net.src.data_processes.npy_handler import append_item
 # from backend.neural_net.src.data_processes.batch_builder import build_apple_batches
 from neural_net.src.models.yamnet_embedder import YAMNetEmbedder
 from neural_net.src.config.embedding_config import APPLE_ROOT, AUDIO_ROOT, OUTPUT_DIR, DURATION, SAMPLE_RATE
@@ -131,8 +131,8 @@ def apple_single_embedding_extraction(song_url, song_name):
     embedding = embedder.embed(audio, sr)
 
     # save output
-    np.save(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings.npy"), embedding)
-    np.save(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), song_name)
+    append_item(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings.npy"), embedding)
+    append_item(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), song_name)
 
     print(f"Saved embedding singular for {song_name} to {OUTPUT_DIR}")
 
