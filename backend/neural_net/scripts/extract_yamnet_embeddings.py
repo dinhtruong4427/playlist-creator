@@ -6,7 +6,7 @@ from tqdm import tqdm
 # file imports
 from neural_net.src.data_processes.audio_indexing import collect_audio_files, collect_apple_samples
 from neural_net.src.data_processes.audio_loader import load_audio, load_apple_audio
-from backend.neural_net.src.data_processes.npy_handler import append_item
+from neural_net.src.data_processes.npy_handler import append_item
 # from backend.neural_net.src.data_processes.batch_builder import build_apple_batches
 from neural_net.src.models.yamnet_embedder import YAMNetEmbedder
 from neural_net.src.config.embedding_config import APPLE_ROOT, AUDIO_ROOT, OUTPUT_DIR, DURATION, SAMPLE_RATE
