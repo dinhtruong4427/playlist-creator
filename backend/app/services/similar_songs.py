@@ -7,6 +7,7 @@ from neural_net.src.data_processes.npy_handler import get_item_index
 def find_similar_songs(song_url, song_name, top_n=5):
     similar_songs_array = []
     cleaned_song_url = song_url.replace("https://", "http://")
+
     embedding = apple_single_embedding_extraction(cleaned_song_url, song_name)
 
 

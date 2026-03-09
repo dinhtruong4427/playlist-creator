@@ -6,7 +6,7 @@ from tqdm import tqdm
 # file imports
 from neural_net.src.data_processes.audio_indexing import collect_audio_files, collect_apple_samples
 from neural_net.src.data_processes.audio_loader import load_audio, load_apple_audio
-from neural_net.src.data_processes.npy_handler import append_item
+from neural_net.src.data_processes.npy_handler import get_item_index, append_item
 # from backend.neural_net.src.data_processes.batch_builder import build_apple_batches
 from neural_net.src.models.yamnet_embedder import YAMNetEmbedder
 from neural_net.src.config.embedding_config import APPLE_ROOT, AUDIO_ROOT, OUTPUT_DIR, DURATION, SAMPLE_RATE
@@ -130,11 +130,15 @@ def apple_single_embedding_extraction(song_url, song_name):
 
     embedding = embedder.embed(audio, sr)
 
-    # save output
-    append_item(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings.npy"), embedding)
-    append_item(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), song_name)
+    embedding_exists = get_item_index(embedding)
 
-    print(f"Saved embedding singular for {song_name} to {OUTPUT_DIR}")
+    if embedding_exists == None:
+        # save output only if it already doesn't exist in embedding list
+        append_item(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings.npy"), embedding)
+        append_item(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), song_name)
+        print(f"Saved embedding singular for {song_name} to {OUTPUT_DIR}")
+    else:
+        print(f"Embedding for {song_name} exists in embedding list")
 
     return embedding
 

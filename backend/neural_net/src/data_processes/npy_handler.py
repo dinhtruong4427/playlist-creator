@@ -10,6 +10,8 @@ def get_item_index(item):
         if current_item == item:
             print(f"Found same embedding at index {index}: {current_item}")
             return index
+    
+    return None
 
 def append_item(file_path, item):
     if os.path.exists(file_path):
