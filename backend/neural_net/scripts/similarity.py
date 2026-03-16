@@ -34,6 +34,7 @@ def get_similar_songs(query_index, song_num=SONG_NUM):
 
     # returns the indexes of most similar songs based off cosine similarity
     top_indices = sims.argsort()[-song_num:][::-1]
+    print("These are the indices of similar songs", top_indices)
 
 
     # Return list of (similarity_score, path)
@@ -50,7 +51,7 @@ def get_similar_songs_by_embedding(query_embedding, song_num=SONG_NUM):
     return [(sims[i], paths[i]) for i in top_indices]
 
 if __name__ == "__main__":
-    query_idx = 100
+    query_idx = len(embeddings) - 1
     similar_songs = get_similar_songs(query_idx, song_num=SONG_NUM)
 
     print(f"\nTop {SONG_NUM} songs similar to:\n{paths[query_idx]}\n")
