@@ -1,5 +1,5 @@
 AUDIO_ROOT = "neural_net/data/raw/fma_small"
-APPLE_ROOT = "neural_net/data/raw/apple_tracks.csv"
+APPLE_ROOT = "neural_net/data/raw/apple_tracks_v3.csv"
 OUTPUT_DIR = "neural_net/data/processed/embeddings"
 EMBEDDINGS_FILE_PATH = "neural_net/data/processed/embeddings/yamnet_apple_embeddings.npy"
 PATHS_FILE_PATH = "neural_net/data/processed/embeddings/apple_song_names.npy"
