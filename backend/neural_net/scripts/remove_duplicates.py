@@ -3,25 +3,31 @@ from neural_net.src.config.embedding_config import APPLE_ROOT
 
 input_file = APPLE_ROOT
 output_file = 'deduped.csv'
-id_column = 'trackId'  # change this to your actual ID column name
+name_column = 'trackName'  # change this to your actual ID column name
+artist_column = 'artistName'
 
 seen = set()
 rows = []
+
+total = 0
+unique = 0
 
 with open(input_file, encoding='utf-8') as f:
     reader = csv.DictReader(f)
     fieldnames = reader.fieldnames
     for row in reader:
-        row_id = row[id_column]
+        total += 1
+        row_id = (row[name_column], row[artist_column])
         if row_id not in seen:
             seen.add(row_id)
             rows.append(row)
+            unique += 1
 
 with open(output_file, 'w', newline='', encoding='utf-8') as f:
     writer = csv.DictWriter(f, fieldnames=fieldnames)
     writer.writeheader()
     writer.writerows(rows)
 
-print(f"Original rows: {len(seen) + (len(rows) - len(seen))}")
-print(f"Unique rows: {len(rows)}")
-print(f"Duplicates removed: {len(seen) - len(rows) + (len(rows) - len(seen))}")
+print(f"Original rows: {total}")
+print(f"Unique rows: {unique}")
+print(f"Duplicates removed: {total - unique}")
