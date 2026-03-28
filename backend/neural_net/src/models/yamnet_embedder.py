@@ -5,7 +5,8 @@ import numpy as np
 class YAMNetEmbedder:
     def __init__(self):
         # loads yamnet model from tensorflow hub
-        self.model = hub.load("https://tfhub.dev/google/yamnet/1")
+        with tf.device('/GPU:0'):
+            self.model = hub.load("https://tfhub.dev/google/yamnet/1")
     '''
     creates an embedding for a single audio
     audio: waveform of audio (float32)

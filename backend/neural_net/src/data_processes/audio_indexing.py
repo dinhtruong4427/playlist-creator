@@ -26,13 +26,16 @@ root: filepath to apple data csv
 '''
 def collect_apple_samples(root):
     sample_list = []
-
+    i = 0
     with open(root, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in tqdm(reader):
             try:
+                if i >= 100000:
+                    break
                 song_object = (row["previewUrl"], row["trackId"], row["trackName"])
                 sample_list.append(song_object)
+                i += 1
             except Exception as e:
                 print(f"Skipping {row['trackName']}: {e}")
 
