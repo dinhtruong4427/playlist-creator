@@ -4,7 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from neural_net.src.config.embedding_config import EMBEDDINGS_FILE_PATH, PATHS_FILE_PATH, SONG_NUM
 
 # load embeddings file
-embeddings = np.load(EMBEDDINGS_FILE_PATH).item()
+embeddings = np.load(EMBEDDINGS_FILE_PATH, allow_pickle=True).item()
 paths = np.load(PATHS_FILE_PATH)
 
 #print(f"Loaded {embeddings.shape[0]} embeddings of dimension {embeddings.shape[1]}.")

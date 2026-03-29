@@ -5,7 +5,7 @@ import os
 from neural_net.src.config.embedding_config import EMBEDDINGS_FILE_PATH
 
 def get_item_index(item):
-    item_array = np.load(EMBEDDINGS_FILE_PATH).item()
+    item_array = np.load(EMBEDDINGS_FILE_PATH, allow_pickle=True).item()
     
     # This calculates similarity for the whole database in one shot
     similarities = cosine_similarity(item.reshape(1, -1), item_array)[0]

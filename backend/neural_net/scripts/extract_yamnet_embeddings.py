@@ -79,7 +79,7 @@ def apple_embedding_extraction():
 
     # convert list of embeddings to a single matrix
 
-    embeddings = np.stack(embeddings)
+    #embeddings = np.stack(embeddings)
     paths = np.stack(paths)
 
     # save outputs
