@@ -4,7 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from neural_net.src.config.embedding_config import EMBEDDINGS_FILE_PATH, PATHS_FILE_PATH, SONG_NUM
 
 # load embeddings file
-embeddings = np.load(EMBEDDINGS_FILE_PATH)
+embeddings = np.load(EMBEDDINGS_FILE_PATH).item()
 paths = np.load(PATHS_FILE_PATH)
 
 #print(f"Loaded {embeddings.shape[0]} embeddings of dimension {embeddings.shape[1]}.")
@@ -23,7 +23,6 @@ def get_similar_songs(query_index, song_num=SONG_NUM):
     # retrieves the vector of the selected song (note understand reshape)
     print("This is the path", paths)
     print(f"Finding similar songs to {paths[query_index]}")
-    embeddings = np.load(EMBEDDINGS_FILE_PATH)
     query_vector = embeddings[query_index].reshape(1, -1)
 
     # computes cosine similarity (angle between 2 vectors) of all embeddings

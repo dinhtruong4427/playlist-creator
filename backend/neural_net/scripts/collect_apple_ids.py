@@ -10,7 +10,11 @@ BASE_URL = "https://itunes.apple.com/search"
 # max results per API call
 LIMIT = 200
 
-# generate search terms: single letters + double letters
+'''
+creates a list of terms aa, ab... az
+params: None
+returns: str[]
+'''
 def generate_search_terms():
     letters = string.ascii_lowercase
     terms = list(letters)  # a-z
@@ -19,6 +23,11 @@ def generate_search_terms():
         terms.append("".join(combo))
     return terms
 
+'''
+reads a csv of search terms and returns them in a list
+params: None
+returns: str[]
+'''
 def collect_search_terms():
     terms = []
     with open("neural_net/data/raw/song_discovery_terms.csv", newline="", encoding="utf-8") as f:
@@ -28,6 +37,11 @@ def collect_search_terms():
             terms.append(term)
     return terms
 
+'''
+reads a csv of artsit names and returns them in a list
+params: None
+returns: str[]
+'''
 def collect_artist_names():
     artists = []
     with open("neural_net/data/raw/artists_us_3k.csv", newline="", encoding="utf-8") as f:
@@ -37,6 +51,14 @@ def collect_artist_names():
             artists.append(artist)
     return artists
 
+'''
+uses apple search api to find a number of songs 
+params:
+- term (str): term used in search query
+- limit (int): number of songs search query can return at maximum
+
+returns: json[] (apple search query json return of songs) 
+'''
 def fetch_tracks(term, limit=LIMIT):
     """
     Returns a list of tracks with previews for a search term.
@@ -57,7 +79,15 @@ def fetch_tracks(term, limit=LIMIT):
     except Exception as e:
         print(f"Error fetching term '{term}': {e}")
         return []
-    
+
+'''
+uses apple search api to find a number of songs under a given artist
+params:
+- artist (str): artist used in search query
+- limit (int): number of songs search query can return at maximum
+
+returns: json[] (apple search query json return of songs) 
+'''
 def fetch_artist_tracks(artist, limit=LIMIT):
     """
     Returns a list of tracks with previews for a search term.
@@ -82,6 +112,7 @@ def fetch_artist_tracks(artist, limit=LIMIT):
         return []
 
 def main():
+    #script to use helper functions tp create a csv of apple tracks
     seen_ids = set()
     search_terms = collect_artist_names()
     print(f"Total search terms: {len(search_terms)}")

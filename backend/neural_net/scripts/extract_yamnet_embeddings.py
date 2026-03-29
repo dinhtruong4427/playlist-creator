@@ -58,7 +58,7 @@ def apple_embedding_extraction():
 
     # set embedding
     embedder = YAMNetEmbedder()
-    embeddings = []
+    embeddings = {}
     paths = []
 
     # song_obj = (previewUrl, trackId, trackName)
@@ -71,13 +71,14 @@ def apple_embedding_extraction():
             emb = embedder.embed(audio, sr)
 
             # adds embedding and path
-            embeddings.append((song_obj[1], emb))
+            embeddings[song_obj[1]] = emb
             paths.append((song_obj[1], song_obj[2]))
 
         except Exception as e:
             print(f"Skipping {song_obj[1]}: {e}")
 
     # convert list of embeddings to a single matrix
+
     embeddings = np.stack(embeddings)
     paths = np.stack(paths)
 

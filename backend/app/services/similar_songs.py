@@ -12,8 +12,9 @@ def find_similar_songs(song_url, song_name, top_n=5):
 
 
     similar_songs = get_similar_songs_by_embedding(embedding, top_n)
-    
+
     '''
+    reverted so it works
     query_index = get_item_index(embedding)
 
     similar_songs = get_similar_songs(query_index, song_num=top_n)
