@@ -1,6 +1,6 @@
 import requests
 
-from neural_net.scripts.similarity import get_similar_songs, get_similar_songs_by_embedding
+from neural_net.scripts.similarity import get_similar_songs, get_similar_songs_by_embedding, get_similar_songs_by_id
 from neural_net.scripts.extract_yamnet_embeddings import apple_single_embedding_extraction
 from neural_net.src.data_processes.npy_handler import get_item_index
 

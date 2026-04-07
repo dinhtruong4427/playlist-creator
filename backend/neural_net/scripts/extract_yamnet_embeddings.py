@@ -59,7 +59,7 @@ def apple_embedding_extraction():
     # set embedding
     embedder = YAMNetEmbedder()
     embeddings = {}
-    paths = []
+    paths = {}
 
     # song_obj = (previewUrl, trackId, trackName)
     for song_obj in tqdm(audio_files, desc="Processing Ding's apple audio files"):
@@ -72,7 +72,7 @@ def apple_embedding_extraction():
 
             # adds embedding and path
             embeddings[song_obj[1]] = emb
-            paths.append((song_obj[1], song_obj[2]))
+            paths[song_obj[1]] = song_obj[2]
 
         except Exception as e:
             print(f"Skipping {song_obj[1]}: {e}")
@@ -80,7 +80,7 @@ def apple_embedding_extraction():
     # convert list of embeddings to a single matrix
 
     #embeddings = np.stack(embeddings)
-    paths = np.stack(paths)
+    #paths = np.stack(paths)
 
     # save outputs
     np.save(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings_v2.npy"), embeddings)

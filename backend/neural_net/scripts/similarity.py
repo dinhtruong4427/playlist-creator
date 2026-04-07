@@ -4,11 +4,27 @@ from sklearn.metrics.pairwise import cosine_similarity
 from neural_net.src.config.embedding_config import EMBEDDINGS_FILE_PATH, PATHS_FILE_PATH, SONG_NUM
 
 # load embeddings file
-embeddings = np.load(EMBEDDINGS_FILE_PATH, allow_pickle=True).item()
-paths = np.load(PATHS_FILE_PATH)
+embeddings_dict = np.load(EMBEDDINGS_FILE_PATH, allow_pickle=True).item()
+song_ids = list(embeddings_dict.keys())
+embeddings = list(embeddings_dict.values())
+
+paths_dict = np.load(PATHS_FILE_PATH, allow_pickle=True).item()
 
 #print(f"Loaded {embeddings.shape[0]} embeddings of dimension {embeddings.shape[1]}.")
 
+
+def get_similar_songs_by_id(song_id, song_num=SONG_NUM):
+    print(f'Finding similar songs to {paths_dict[song_id]}')
+
+    query_vector = embeddings_dict[song_id].reshape(1, -1)
+
+    sims = cosine_similarity(query_vector, embeddings)[0]
+
+    top_indices = sims.argsort()[-song_num:][::-1]
+    print("These are the indices of similar songs", top_indices)
+
+    # Return list of (similarity_score, path)
+    return [(sims[i], song_ids[i]) for i in top_indices]
 '''
 gets a given number of songs that are similar to a selected song
 
@@ -21,8 +37,8 @@ return:
 '''
 def get_similar_songs(query_index, song_num=SONG_NUM):
     # retrieves the vector of the selected song (note understand reshape)
-    print("This is the path", paths)
-    print(f"Finding similar songs to {paths[query_index]}")
+    print(f"Finding similar songs to {paths_dict[query_index]}")
+
     query_vector = embeddings[query_index].reshape(1, -1)
 
     # computes cosine similarity (angle between 2 vectors) of all embeddings
@@ -37,7 +53,7 @@ def get_similar_songs(query_index, song_num=SONG_NUM):
 
 
     # Return list of (similarity_score, path)
-    return [(sims[i], paths[i]) for i in top_indices]
+    return [(sims[i], paths_dict[i]) for i in top_indices]
 
 def get_similar_songs_by_embedding(query_embedding, song_num=SONG_NUM):
     # computes cosine similarity (angle between 2 vectors) of all embeddings
@@ -47,12 +63,13 @@ def get_similar_songs_by_embedding(query_embedding, song_num=SONG_NUM):
     top_indices = sims.argsort()[-song_num:][::-1]
 
     # Return list of (similarity_score, path)
-    return [(sims[i], paths[i]) for i in top_indices]
+    return [(sims[i], paths_dict[i]) for i in top_indices]
 
 if __name__ == "__main__":
-    query_idx = len(embeddings) - 1
-    similar_songs = get_similar_songs(query_idx, song_num=SONG_NUM)
+    query_idx = '1418213392'
+    print("This is the similar song", paths_dict)
+    similar_songs = get_similar_songs_by_id(query_idx, song_num=SONG_NUM)
 
-    print(f"\nTop {SONG_NUM} songs similar to:\n{paths[query_idx]}\n")
-    for score, path in similar_songs:
-        print(f"{score:.4f} → {path}")
+    print(f"\nTop {SONG_NUM} songs similar to:\n{paths_dict[query_idx]}\n")
+    for score, song_id in similar_songs:
+        print(f"{score:.4f} → {paths_dict[song_id]}")
