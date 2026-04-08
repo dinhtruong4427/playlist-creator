@@ -1,11 +1,14 @@
 import requests
+import numpy as np
 
 from neural_net.scripts.similarity import get_similar_songs, get_similar_songs_by_embedding, get_similar_songs_by_id
 from neural_net.scripts.extract_yamnet_embeddings import apple_single_embedding_extraction
 from neural_net.src.data_processes.npy_handler import get_item_index
+from neural_net.src.config.embedding_config import PATHS_FILE_PATH
 
 def find_similar_songs(song_id, top_n=5):
     similar_songs_array = []
+    paths_dict = np.load(PATHS_FILE_PATH, allow_pickle=True).item()
     #cleaned_song_url = song_url.replace("https://", "http://")
 
 
@@ -15,8 +18,10 @@ def find_similar_songs(song_id, top_n=5):
     song_url = song_url.replace("https://", "http://")
 
     song_name = selected_song["title"]
-
-    apple_single_embedding_extraction(song_id, song_url, song_name)
+    if str(song_id) not in paths_dict:
+        apple_single_embedding_extraction(song_id, song_url, song_name)
+    else:
+        print('song exists already in there')
 
 
     similar_songs = get_similar_songs_by_id(song_id, top_n)
