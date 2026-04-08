@@ -6,7 +6,7 @@ from tqdm import tqdm
 # file imports
 from neural_net.src.data_processes.audio_indexing import collect_audio_files, collect_apple_samples
 from neural_net.src.data_processes.audio_loader import load_audio, load_apple_audio
-from neural_net.src.data_processes.npy_handler import get_item_index, append_item
+from neural_net.src.data_processes.npy_handler import append_item
 # from backend.neural_net.src.data_processes.batch_builder import build_apple_batches
 from neural_net.src.models.yamnet_embedder import YAMNetEmbedder
 from neural_net.src.config.embedding_config import APPLE_ROOT, AUDIO_ROOT, OUTPUT_DIR, DURATION, SAMPLE_RATE
@@ -58,8 +58,8 @@ def apple_embedding_extraction():
 
     # set embedding
     embedder = YAMNetEmbedder()
-    embeddings = []
-    paths = []
+    embeddings = {}
+    paths = {}
 
     # song_obj = (previewUrl, trackId, trackName)
     for song_obj in tqdm(audio_files, desc="Processing Ding's apple audio files"):
@@ -71,15 +71,16 @@ def apple_embedding_extraction():
             emb = embedder.embed(audio, sr)
 
             # adds embedding and path
-            embeddings.append((song_obj[1], emb))
-            paths.append((song_obj[1], song_obj[2]))
+            embeddings[song_obj[1]] = emb
+            paths[song_obj[1]] = song_obj[2]
 
         except Exception as e:
             print(f"Skipping {song_obj[1]}: {e}")
 
     # convert list of embeddings to a single matrix
-    embeddings = np.stack(embeddings)
-    paths = np.stack(paths)
+
+    #embeddings = np.stack(embeddings)
+    #paths = np.stack(paths)
 
     # save outputs
     np.save(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings_v2.npy"), embeddings)
@@ -122,8 +123,10 @@ def apple_batched_embedding_extraction():
     print(f"Saved {len(embeddings)} embeddings to {OUTPUT_DIR}")
 '''
 
-def apple_single_embedding_extraction(song_url, song_name):
+def apple_single_embedding_extraction(song_id, song_url, song_name):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    str_song_id = str(song_id)
 
     embedder = YAMNetEmbedder()
 
@@ -131,17 +134,9 @@ def apple_single_embedding_extraction(song_url, song_name):
 
     embedding = embedder.embed(audio, sr)
 
-    embedding_exists = get_item_index(embedding)
-
-    if embedding_exists == None:
-        # save output only if it already doesn't exist in embedding list
-        append_item(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings.npy"), embedding)
-        append_item(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), song_name)
-        print(f"Saved embedding singular for {song_name} to {OUTPUT_DIR}")
-    else:
-        print(f"Embedding for {song_name} exists in embedding list")
-
-    return embedding
+    append_item(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings_v2.npy"), str_song_id, embedding)
+    append_item(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), str_song_id, song_name)
+    print(f"Saved embedding singular for {song_name} to {OUTPUT_DIR}")
 
 def main():
     apple_embedding_extraction()

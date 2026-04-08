@@ -31,10 +31,12 @@ def collect_apple_samples(root):
         reader = csv.DictReader(f)
         for row in tqdm(reader):
             try:
-                if i >= 100000:
+                #temporary audio indexing reduction for low sample testing
+                if i >= 8999:
                     break
-                song_object = (row["previewUrl"], row["trackId"], row["trackName"])
-                sample_list.append(song_object)
+                if i % 1000 == 0:
+                    song_object = (row["previewUrl"], row["trackId"], row["trackName"])
+                    sample_list.append(song_object)
                 i += 1
             except Exception as e:
                 print(f"Skipping {row['trackName']}: {e}")
