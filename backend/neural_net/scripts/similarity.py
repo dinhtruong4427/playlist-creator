@@ -14,9 +14,16 @@ paths_dict = np.load(PATHS_FILE_PATH, allow_pickle=True).item()
 
 
 def get_similar_songs_by_id(song_id, song_num=SONG_NUM):
-    print(f'Finding similar songs to {paths_dict[song_id]}')
+    embeddings_dict = np.load(EMBEDDINGS_FILE_PATH, allow_pickle=True).item()
+    song_ids = list(embeddings_dict.keys())
+    embeddings = list(embeddings_dict.values())
 
-    query_vector = embeddings_dict[song_id].reshape(1, -1)
+    paths_dict = np.load(PATHS_FILE_PATH, allow_pickle=True).item()
+
+    str_song_id = str(song_id)
+    print(f'Finding similar songs to {paths_dict[str_song_id]}')
+
+    query_vector = embeddings_dict[str_song_id].reshape(1, -1)
 
     sims = cosine_similarity(query_vector, embeddings)[0]
 
@@ -36,6 +43,11 @@ return:
 - list of tuples (similarity score, file path)
 '''
 def get_similar_songs(query_index, song_num=SONG_NUM):
+    embeddings_dict = np.load(EMBEDDINGS_FILE_PATH, allow_pickle=True).item()
+    song_ids = list(embeddings_dict.keys())
+    embeddings = list(embeddings_dict.values())
+
+    paths_dict = np.load(PATHS_FILE_PATH, allow_pickle=True).item()
     # retrieves the vector of the selected song (note understand reshape)
     print(f"Finding similar songs to {paths_dict[query_index]}")
 
@@ -56,6 +68,11 @@ def get_similar_songs(query_index, song_num=SONG_NUM):
     return [(sims[i], paths_dict[i]) for i in top_indices]
 
 def get_similar_songs_by_embedding(query_embedding, song_num=SONG_NUM):
+    embeddings_dict = np.load(EMBEDDINGS_FILE_PATH, allow_pickle=True).item()
+    song_ids = list(embeddings_dict.keys())
+    embeddings = list(embeddings_dict.values())
+
+    paths_dict = np.load(PATHS_FILE_PATH, allow_pickle=True).item()
     # computes cosine similarity (angle between 2 vectors) of all embeddings
     sims = cosine_similarity(query_embedding.reshape(1, -1), embeddings)[0]
 

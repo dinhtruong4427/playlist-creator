@@ -4,14 +4,22 @@ from neural_net.scripts.similarity import get_similar_songs, get_similar_songs_b
 from neural_net.scripts.extract_yamnet_embeddings import apple_single_embedding_extraction
 from neural_net.src.data_processes.npy_handler import get_item_index
 
-def find_similar_songs(song_url, song_name, top_n=5):
+def find_similar_songs(song_id, top_n=5):
     similar_songs_array = []
-    cleaned_song_url = song_url.replace("https://", "http://")
-
-    embedding = apple_single_embedding_extraction(cleaned_song_url, song_name)
+    #cleaned_song_url = song_url.replace("https://", "http://")
 
 
-    similar_songs = get_similar_songs_by_embedding(embedding, top_n)
+    selected_song = get_song_by_id(song_id)
+
+    song_url = selected_song["previewUrl"]
+    song_url = song_url.replace("https://", "http://")
+
+    song_name = selected_song["title"]
+
+    apple_single_embedding_extraction(song_id, song_url, song_name)
+
+
+    similar_songs = get_similar_songs_by_id(song_id, top_n)
 
     '''
     reverted so it works

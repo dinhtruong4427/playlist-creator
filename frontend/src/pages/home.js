@@ -69,8 +69,7 @@ export function HomePage(navigate) {
             let currentSelectedSong = getSelectedSong();
 
             let similarSongs = await getSimilarSongs({
-                songUrl: currentSelectedSong.previewUrl,
-                songName: currentSelectedSong.title,
+                songId: currentSelectedSong.id,
                 topN: 5,
             })
 

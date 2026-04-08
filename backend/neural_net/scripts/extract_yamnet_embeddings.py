@@ -123,7 +123,7 @@ def apple_batched_embedding_extraction():
     print(f"Saved {len(embeddings)} embeddings to {OUTPUT_DIR}")
 '''
 
-def apple_single_embedding_extraction(song_url, song_name):
+def apple_single_embedding_extraction(song_id, song_url, song_name):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     embedder = YAMNetEmbedder()
@@ -132,17 +132,11 @@ def apple_single_embedding_extraction(song_url, song_name):
 
     embedding = embedder.embed(audio, sr)
 
-    embedding_exists = get_item_index(embedding)
 
-    if embedding_exists == None:
-        # save output only if it already doesn't exist in embedding list
-        append_item(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings.npy"), embedding)
-        append_item(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), song_name)
-        print(f"Saved embedding singular for {song_name} to {OUTPUT_DIR}")
-    else:
-        print(f"Embedding for {song_name} exists in embedding list")
-
-    return embedding
+    # save output only if it already doesn't exist in embedding list
+    append_item(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings_v2.npy"), song_id, embedding)
+    append_item(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), song_id, song_name)
+    print(f"Saved embedding singular for {song_name} to {OUTPUT_DIR}")
 
 def main():
     apple_embedding_extraction()

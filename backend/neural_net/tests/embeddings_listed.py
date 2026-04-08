@@ -8,6 +8,6 @@ embeddings_list = np.load(EMBEDDINGS_FILE_PATH, allow_pickle=True).item()
 
 song_names = np.load(PATHS_FILE_PATH, allow_pickle=True).item()
 
-print("embeddings", list(embeddings_list.keys()))
+print("embeddings", list(embeddings_list.keys()), type(list(embeddings_list.keys())[0]))
 print("song names", list(song_names.values()))
 

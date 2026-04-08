@@ -9,7 +9,7 @@ let controller; // keeps track of the current similarity request
  * @param {number} [params.topN=5]  - Number of similar songs to return
  * @returns {Promise<Array<{ id: int, title: str, artist: str, albumArtwork: str, previewUrl: str }>>}
  */
-export async function getSimilarSongs({ songUrl, songName, topN = 5 }) {
+export async function getSimilarSongs({ songId, topN = 5 }) {
   // Cancel previous request if it exists
   if (controller) {
     controller.abort();
@@ -19,8 +19,7 @@ export async function getSimilarSongs({ songUrl, songName, topN = 5 }) {
   const signal = controller.signal;
 
   const params = new URLSearchParams({
-    song_url: songUrl,
-    song_name: songName,
+    song_id: songId,
     top_n: topN,
   });
 
