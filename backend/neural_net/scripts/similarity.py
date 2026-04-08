@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 from neural_net.src.config.embedding_config import EMBEDDINGS_FILE_PATH, PATHS_FILE_PATH, SONG_NUM
+from neural_net.src.data_processes.npy_handler import get_item_index
 
 # load embeddings file
 embeddings_dict = np.load(EMBEDDINGS_FILE_PATH, allow_pickle=True).item()
@@ -21,11 +22,15 @@ def get_similar_songs_by_id(song_id, song_num=SONG_NUM):
     paths_dict = np.load(PATHS_FILE_PATH, allow_pickle=True).item()
 
     str_song_id = str(song_id)
+    selected_song_index = get_item_index(str_song_id)
+
+    print(f'This is the last item in python dict {list(paths_dict)[-1]}')
     print(f'Finding similar songs to {paths_dict[str_song_id]}')
 
     query_vector = embeddings_dict[str_song_id].reshape(1, -1)
 
     sims = cosine_similarity(query_vector, embeddings)[0]
+    sims[selected_song_index] = -1
 
     top_indices = sims.argsort()[-song_num:][::-1]
     print("These are the indices of similar songs", top_indices)

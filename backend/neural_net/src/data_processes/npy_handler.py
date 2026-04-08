@@ -4,23 +4,17 @@ import os
 
 from neural_net.src.config.embedding_config import EMBEDDINGS_FILE_PATH
 
-def get_item_index(item):
+def get_item_index(key):
     embeddings_dict = np.load(EMBEDDINGS_FILE_PATH, allow_pickle=True).item()
     song_ids = list(embeddings_dict.keys())
     embeddings = list(embeddings_dict.values())
     
     # This calculates similarity for the whole database in one shot
-    similarities = cosine_similarity(item.reshape(1, -1), embeddings)[0]
-    
-    # Find the index of the highest similarity
-    max_idx = np.argmax(similarities)
-    
-    # Check if the best match is actually "identical"
-    if similarities[max_idx] >= 0.99999:
-        print("This is the index of the song", int(max_idx))
-        return int(max_idx)
-        
+    index = song_ids.index(key)
+    if index:
+        return index
     return None
+
 
 '''
 This function is now adjusted for dictionaries
