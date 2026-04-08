@@ -34,7 +34,7 @@ def collect_apple_samples(root):
                 #temporary audio indexing reduction for low sample testing
                 if i >= 8999:
                     break
-                if i % 1000 == 0:
+                if i % 100 == 0:
                     song_object = (row["previewUrl"], row["trackId"], row["trackName"])
                     sample_list.append(song_object)
                 i += 1
