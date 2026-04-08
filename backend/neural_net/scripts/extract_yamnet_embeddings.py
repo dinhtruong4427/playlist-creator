@@ -126,14 +126,16 @@ def apple_batched_embedding_extraction():
 def apple_single_embedding_extraction(song_id, song_url, song_name):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
+    str_song_id = str(song_id)
+
     embedder = YAMNetEmbedder()
 
     audio, sr = load_apple_audio(song_url, sr=SAMPLE_RATE, duration=DURATION)
 
     embedding = embedder.embed(audio, sr)
 
-    append_item(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings_v2.npy"), str(song_id), embedding)
-    append_item(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), str(song_id), song_name)
+    append_item(os.path.join(OUTPUT_DIR, "yamnet_apple_embeddings_v2.npy"), str_song_id, embedding)
+    append_item(os.path.join(OUTPUT_DIR, "apple_song_names.npy"), str_song_id, song_name)
     print(f"Saved embedding singular for {song_name} to {OUTPUT_DIR}")
 
 def main():
