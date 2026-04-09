@@ -15,7 +15,7 @@ export function ScrollBox() {
     }
 
     function clear() {
-        container.innerHTML = '';
+        container.replaceChildren();
     }
 
     function addItemAnimated(element, delay = 0) {

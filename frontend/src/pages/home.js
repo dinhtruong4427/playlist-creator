@@ -61,6 +61,7 @@ export function HomePage(navigate) {
     const buildButton = BuildButton({
         label: 'Build Playlist',
         onClick: debounce(async (query) => {
+            scrollBox.clear
             console.log('Build Playlist button clicked');
             box.classList.add('expanded');
             expandedBox.classList.add('expanded');
