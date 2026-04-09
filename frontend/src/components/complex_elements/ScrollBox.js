@@ -14,7 +14,7 @@ export function ScrollBox() {
         container.scrollTop = container.scrollHeight
     }
 
-    function clear() {
+    function clearScroll() {
         container.replaceChildren();
     }
 
@@ -31,8 +31,9 @@ export function ScrollBox() {
 
     return {
         scrollContainer,
+        container,
         addItem,
-        clear,
+        clearScroll,
         addItemAnimated
     };
 }

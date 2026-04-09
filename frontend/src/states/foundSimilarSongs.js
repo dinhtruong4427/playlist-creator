@@ -6,11 +6,11 @@ export function getSimilarSongs() {
 }
 
 export function addSimilarSong(song) {
-  selectedSong = song;
+  foundSimilarSongs.append(song);
   listeners.forEach(fn => fn(song));
 }
 
-export function subscribeSelectedSong(fn) {
-  listeners.add(fn);
+export function clearSimilarSongs() {
+  foundSimilarSongs = []
   return () => listeners.delete(fn);
 }

@@ -2,15 +2,21 @@
   border: 2px solid grey;
   border-radius: 12px;
   overflow: hidden;
-  max-height: 74vh
+  max-height: 72vh
 }
 
 .scroll-box {
-  max-height: 72vh;
+  height: 0vh;
   overflow-y: auto;
   padding-right: 12px;
   scroll-behavior: smooth;
   padding: 4px;
+  transition:
+    height 0s ease;
+}
+
+.scroll-box.expanded {
+  height: 70vh
 }
 
 .scroll-box > * + * {
