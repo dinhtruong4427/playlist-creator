@@ -62,6 +62,7 @@ export function HomePage(navigate) {
         label: 'Build Playlist',
         onClick: debounce(async (query) => {
             scrollBox.clearScroll()
+            scrollBox.showSpinner()
             scrollBox.container.classList.add('expanded')
             console.log('Build Playlist button clicked');
             box.classList.add('expanded');
@@ -76,7 +77,7 @@ export function HomePage(navigate) {
             })
 
             console.log("Similar songs fetched:", similarSongs);
-
+            scrollBox.hideSpinner();
             setTimeout(() => {}, 400)
             for (let i = 0; i < 5; i++) {
                 scrollBox.addItemAnimated(SmallSongCard({
