@@ -9,13 +9,17 @@ export function ScrollBox() {
 
     scrollContainer.appendChild(container);
 
+    const spinner = document.createElement('div')
+    spinner.className = 'spinner';
+    scrollContainer.appendChild(spinner);
+
     function addItem(element) {
         container.appendChild(element);
         container.scrollTop = container.scrollHeight
     }
 
-    function clear() {
-        container.innerHTML = '';
+    function clearScroll() {
+        container.replaceChildren();
     }
 
     function addItemAnimated(element, delay = 0) {
@@ -29,10 +33,26 @@ export function ScrollBox() {
         }, delay);
     }
 
+    function showSpinner() {
+        console.log("Showing spinner")
+        spinner.style.display = 'block';
+    }
+
+    function hideSpinner() {
+        spinner.classList.add('fade-out');
+        setTimeout(() => {
+            spinner.style.display = 'none';
+            spinner.classList.remove('fade-out');
+        }, 400);
+    }
+
     return {
         scrollContainer,
+        container,
         addItem,
-        clear,
-        addItemAnimated
+        clearScroll,
+        addItemAnimated,
+        showSpinner,
+        hideSpinner
     };
 }
