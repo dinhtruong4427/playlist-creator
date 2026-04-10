@@ -4,7 +4,7 @@ export function Dropdown(){
     const dropdown = document.createElement('select');
     dropdown.className = 'dropdown';
 
-    const options = ['1', '2', '3'];
+    const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
     options.forEach(opt => {
         const option = document.createElement('option');

@@ -24,3 +24,9 @@
     max-height: 10vh;
     opacity: 1;
 }
+
+.dropdown-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
