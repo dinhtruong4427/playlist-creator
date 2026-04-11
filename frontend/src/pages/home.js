@@ -9,6 +9,7 @@ import { BuildPlaylistCard } from '../components/cards/BuildPlaylistCard.js'
 import { BoxLabel } from '../components/basic_elements/BoxLabel.js';
 //States
 import { getSelectedSong, setSelectedSong, subscribeSelectedSong } from '../states/singleSelectedSong.js';
+import { getNumSongs } from '../states/numSongs.js';
 //APIs
 import { searchSongs } from '../api/searchAPI.js';
 import { getSimilarSongs } from '../api/similarSongsAPI.js';

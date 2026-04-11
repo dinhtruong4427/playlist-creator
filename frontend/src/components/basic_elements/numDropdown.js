@@ -1,4 +1,5 @@
 import './numDropdown.css';
+import { setNumSongs } from '../../states/numSongs';
 
 export function Dropdown(){
     const dropdown = document.createElement('select');
@@ -13,6 +14,7 @@ export function Dropdown(){
         dropdown.appendChild(option);
     });
     dropdown.addEventListener('change', () => {
+        setNumSongs(dropdown.value)
         console.log('Selected:', dropdown.value);
     });
 
