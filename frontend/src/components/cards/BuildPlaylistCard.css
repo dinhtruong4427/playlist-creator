@@ -11,8 +11,9 @@
   padding: 1vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 200px;
-  background-color: #f50000;
+  background-color: #292929;
   margin-top:0px;
+  overflow: visible;
   transition:
     margin-top .4s ease,
     opacity .4s ease,
@@ -23,10 +24,4 @@
     margin-top: 10px;
     max-height: 10vh;
     opacity: 1;
-}
-
-.dropdown-label {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 4px;
 }
