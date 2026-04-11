@@ -71,15 +71,17 @@ export function HomePage(navigate) {
 
             let currentSelectedSong = getSelectedSong();
 
+            let songCount = getNumSongs();
+
             let similarSongs = await getSimilarSongs({
                 songId: currentSelectedSong.id,
-                topN: 5,
+                topN: songCount,
             })
 
             console.log("Similar songs fetched:", similarSongs);
             scrollBox.hideSpinner();
             setTimeout(() => {}, 400)
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < songCount; i++) {
                 scrollBox.addItemAnimated(SmallSongCard({
                     src: similarSongs[i].albumArtwork,
                     title: similarSongs[i].title,
