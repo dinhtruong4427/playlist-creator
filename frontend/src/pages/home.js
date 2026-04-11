@@ -5,9 +5,11 @@ import { ScrollBox } from '../components/complex_elements/ScrollBox.js';
 import { BuildButton } from '../components/basic_elements/buildButton.js';
 import { LargeSongCard } from '../components/cards/largeSongCard.js';
 import { SmallSongCard } from '../components/cards/SmallSongCard.js';
+import { BuildPlaylistCard } from '../components/cards/BuildPlaylistCard.js'
 import { BoxLabel } from '../components/basic_elements/BoxLabel.js';
 //States
 import { getSelectedSong, setSelectedSong, subscribeSelectedSong } from '../states/singleSelectedSong.js';
+import { getNumSongs } from '../states/numSongs.js';
 //APIs
 import { searchSongs } from '../api/searchAPI.js';
 import { getSimilarSongs } from '../api/similarSongsAPI.js';
@@ -58,8 +60,7 @@ export function HomePage(navigate) {
         artist: 'Radiohead',
     });
 
-    const buildButton = BuildButton({
-        label: 'Build Playlist',
+    const buildPlaylistCard = BuildPlaylistCard({
         onClick: debounce(async (query) => {
             scrollBox.clearScroll()
             scrollBox.showSpinner()
@@ -67,19 +68,20 @@ export function HomePage(navigate) {
             console.log('Build Playlist button clicked');
             box.classList.add('expanded');
             expandedBox.classList.add('expanded');
-            //boxTitle.changeTitle('Selected Song:', true);
 
             let currentSelectedSong = getSelectedSong();
 
+            let songCount = getNumSongs();
+
             let similarSongs = await getSimilarSongs({
                 songId: currentSelectedSong.id,
-                topN: 5,
+                topN: songCount,
             })
 
             console.log("Similar songs fetched:", similarSongs);
             scrollBox.hideSpinner();
             setTimeout(() => {}, 400)
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < songCount; i++) {
                 scrollBox.addItemAnimated(SmallSongCard({
                     src: similarSongs[i].albumArtwork,
                     title: similarSongs[i].title,
@@ -88,7 +90,6 @@ export function HomePage(navigate) {
             }
         })
     });
-
     
     const sidebar = Sidebar(navigate);
     const searchBar = SearchBar({
@@ -97,14 +98,14 @@ export function HomePage(navigate) {
         onSelect: (item) => {
             console.log("Item selected:", item);
             mainSongCard.container.classList.remove('expanded');
-            buildButton.classList.remove('expanded');
+            buildPlaylistCard.classList.remove('expanded');
             box.classList.remove('expanded');
             expandedBox.classList.remove('expanded');
             setSelectedSong(item)
             mainSongCard.updateSong(item);
             setTimeout(() => {
                 mainSongCard.container.classList.add('expanded');
-                buildButton.classList.add('expanded');
+                buildPlaylistCard.classList.add('expanded');
             }, 400);
         },
         onInput: debounce(async (query) => {
@@ -126,7 +127,7 @@ export function HomePage(navigate) {
     box.appendChild(boxTitle.container);
     box.appendChild(searchBar.element); //note, change everything to element
     box.appendChild(mainSongCard.container);
-    box.appendChild(buildButton);
+    box.appendChild(buildPlaylistCard);
 
     boxWrapper.appendChild(box);
     boxWrapper.appendChild(expandedBox);

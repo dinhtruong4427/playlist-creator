@@ -9,9 +9,9 @@
 .scroll-box {
   position: relative;
   height: 0vh;
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-anchor: none;
   padding-right: 12px;
-  scroll-behavior: smooth;
   padding: 4px;
   transition:
     height 0s ease;

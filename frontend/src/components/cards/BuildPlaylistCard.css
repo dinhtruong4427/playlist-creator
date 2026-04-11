@@ -1,0 +1,27 @@
+.playlist-card {
+  justify-content: center; 
+  display: flex;
+  column-gap: 5px;
+  flex-direction: row;
+  align-items: center;
+  width: 20vw;
+  max-height: 0vh;
+  overflow: hidden;
+  opacity: 0;
+  padding: 1vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 200px;
+  background-color: #292929;
+  margin-top:0px;
+  overflow: visible;
+  transition:
+    margin-top .4s ease,
+    opacity .4s ease,
+    max-height .4s ease;
+}
+
+.playlist-card.expanded {
+    margin-top: 10px;
+    max-height: 10vh;
+    opacity: 1;
+}
